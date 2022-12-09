@@ -1,0 +1,43 @@
+trigger:
+- master
+pool:
+  vmImage: 'Ubuntu-18.04'
+
+variables:
+  imageName: 'pipelines-javascript-docker'
+
+steps:
+- task: ArtifactoryToolsInstaller@1
+  inputs:
+    artifactoryService: 'cloud'
+    cliInstallationRepo: 'jfrog-cli'
+    installCustomVersion: true
+    cliVersion: '1.46.0'
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: clouddsein.jfrog.io/vc-docker-local/$(imageName)
+    command: build
+    Dockerfile: app/Dockerfile
+- task: ArtifactoryDocker@1
+  inputs:
+    command: 'push'
+    artifactoryService: 'cloud'
+    targetRepo: 'vc-docker-local'
+    imageName: 'clouddsein.jfrog.io/vc-docker-local/$(imageName):$(Build.BuildId)'
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    includeEnvVars: true
+- task: ArtifactoryPublishBuildInfo@1
+  inputs:
+    artifactoryService: 'cloud'
+    buildName: $(Build.DefinitionName)
+    buildNumber: $(Build.BuildNumber)
+
+
+
+
+
+
+
