@@ -17,7 +17,7 @@ steps:
   inputs:
     command: 'push'
     artifactoryService: 'tata'
-    targetRepo: 'vc-docker-local'
+    targetRepo: 'docker-local'
     imageName: 'sandeepmkp.jfrog.io/docker-local/$(imageName):$(Build.BuildId)'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
