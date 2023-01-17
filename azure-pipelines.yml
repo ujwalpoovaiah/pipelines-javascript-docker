@@ -18,7 +18,7 @@ steps:
   inputs:
     command: 'push'
     artifactoryService: 'hts2'
-    targetRepo: 'docker-local'
+    targetRepo: 'vc-docker'
     imageName: 'hts2-vc-docker.jfrog.io/$(imageName):$(Build.BuildId)'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
