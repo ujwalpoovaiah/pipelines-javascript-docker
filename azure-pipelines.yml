@@ -10,22 +10,22 @@ steps:
 - task: Docker@2
   displayName: Build an image
   inputs:
-    repository: sandeepmkp.jfrog.io/docker-local/$(imageName)
+    repository: hts2-vc-docker.jfrog.io/$(imageName)
     command: build
     Dockerfile: app/Dockerfile
 - task: ArtifactoryDocker@1
   inputs:
     command: 'push'
-    artifactoryService: 'tata'
+    artifactoryService: 'hts2'
     targetRepo: 'docker-local'
-    imageName: 'sandeepmkp.jfrog.io/docker-local/$(imageName):$(Build.BuildId)'
+    imageName: 'hts2-vc-docker.jfrog.io/$(imageName):$(Build.BuildId)'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     includeEnvVars: true
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
-    artifactoryService: 'tata'
+    artifactoryService: 'hts2'
     buildName: $(Build.DefinitionName)
     buildNumber: $(Build.BuildNumber)
 
