@@ -12,7 +12,6 @@ steps:
   displayName: Build an image
   inputs:
     repository: hts2-onec-docker-dev.jfrog.io/$(imageName)
-    containerRegistry: 'Jfrog Docker registry'
     command: build
     Dockerfile: app/Dockerfile
     tags: 'latest'
