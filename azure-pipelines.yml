@@ -20,7 +20,7 @@ steps:
     command: 'push'
     artifactoryService: 'hts2'
     targetRepo: 'onec-docker-dev'
-    imageName: 'hts2-onec-docker-dev.jfrog.io/pipelines-javascript-docker:latest'
+    imageName: 'pipelines-javascript-docker:latest'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
