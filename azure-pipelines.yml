@@ -1,5 +1,4 @@
 trigger:
-
 - master
 pool:
   vmImage: 'Ubuntu-18.04'
@@ -11,22 +10,21 @@ steps:
 - task: Docker@2
   displayName: Build an image
   inputs:
-    repository: hts2-onec-docker-dev.jfrog.io/$(imageName)
+    repository: sandeepmkp.jfrog.io/docker-local/$(imageName)
     command: build
     Dockerfile: app/Dockerfile
-    tags: 'latest'
 - task: ArtifactoryDocker@1
   inputs:
     command: 'push'
-    artifactoryService: 'hts2'
-    targetRepo: 'onec-docker-dev'
-    imageName: 'pipelines-javascript-docker:latest'
+    artifactoryService: 'tata'
+    targetRepo: 'docker-local'
+    imageName: 'sandeepmkp.jfrog.io/docker-local/$(imageName):$(Build.BuildId)'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     includeEnvVars: true
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
-    artifactoryService: 'hts2'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
+    artifactoryService: 'tata'
+    buildName: $(Build.DefinitionName)
+    buildNumber: $(Build.BuildNumber)
