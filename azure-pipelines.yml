@@ -13,6 +13,9 @@ steps:
     repository: sandeepmkp.jfrog.io/docker-local/$(imageName)
     command: build
     Dockerfile: app/Dockerfile
+- task: CmdLine@2
+  inputs:
+    script: 'docker ps'
 - task: ArtifactoryDocker@1
   inputs:
     command: 'push'
