@@ -15,7 +15,7 @@ steps:
     Dockerfile: app/Dockerfile
 - task: CmdLine@2
   inputs:
-    script: 'docker ps'
+    script: 'docker ps -a'
 - task: ArtifactoryDocker@1
   inputs:
     command: 'push'
@@ -26,6 +26,9 @@ steps:
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     includeEnvVars: true
+- task: CmdLine@2
+  inputs:
+    script: 'docker ps -a'
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
     artifactoryService: 'tata'
