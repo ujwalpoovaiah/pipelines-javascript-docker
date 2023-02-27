@@ -15,7 +15,7 @@ steps:
     Dockerfile: app/Dockerfile
 - task: CmdLine@2
   inputs:
-    script: 'docker ps -a'
+    script: 'docker images'
 - task: ArtifactoryDocker@1
   inputs:
     command: 'push'
