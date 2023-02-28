@@ -25,7 +25,6 @@ steps:
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
-    includeEnvVars: true
 - task: CmdLine@2
   inputs:
     script: 'docker ps -a'
