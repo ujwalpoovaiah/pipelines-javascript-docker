@@ -7,6 +7,12 @@ variables:
   imageName: 'pipelines-javascript-docker'
 
 steps:
+- task: ArtifactoryToolsInstaller@1
+  inputs:
+    artifactoryService: 'tata'
+    cliInstallationRepo: 'jfrog-cli-v1'
+    installCustomVersion: true
+    cliVersion: '1.53.2'
 - task: Docker@2
   displayName: Build an image
   inputs:
@@ -26,11 +32,3 @@ steps:
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
-- task: CmdLine@2
-  inputs:
-    script: 'docker ps -a'
-- task: ArtifactoryPublishBuildInfo@1
-  inputs:
-    artifactoryService: 'tata'
-    buildName: $(Build.DefinitionName)
-    buildNumber: $(Build.BuildNumber)
