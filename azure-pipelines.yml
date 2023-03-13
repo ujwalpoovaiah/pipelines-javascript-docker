@@ -10,12 +10,12 @@ steps:
 - task: JFrogToolsInstaller@1
   inputs:
     artifactoryConnection: 'sandeepa'
-    cliInstallationRepo: 'jfrog-cli-v2-new'
+    cliInstallationRepo: 'cli-v2-new'
     installCustomVersion: true
     cliVersion: '2.12.1'
 - task: Docker@2
   inputs:
-    repository: 'sandeepmkp.jfrog.io/test-docker/tde/ado/$(imageName)'
+    repository: 'f9ca-35-205-102-215.eu.ngrok.io/test-docker/tde/ado/$(imageName)'
     command: 'build'
     Dockerfile: 'app/Dockerfile'
     tags: 'latest'
@@ -23,7 +23,7 @@ steps:
   inputs:
     command: 'Push'
     artifactoryConnection: 'sandeepa'
-    imageName: 'sandeepmkp.jfrog.io/test-docker/tde/ado/$(imageName):latest'
+    imageName: 'f9ca-35-205-102-215.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
