@@ -7,28 +7,23 @@ variables:
   imageName: 'pipelines-javascript-docker'
 
 steps:
-- task: ArtifactoryToolsInstaller@1
+- task: JFrogToolsInstaller@1
   inputs:
-    artifactoryService: 'tata'
-    cliInstallationRepo: 'jfrog-cli-v1'
+    artifactoryConnection: 'sandeepa'
+    cliInstallationRepo: 'jfrog-cli-v2-new'
     installCustomVersion: true
-    cliVersion: '1.53.2'
+    cliVersion: '2.12.1'
 - task: Docker@2
-  displayName: Build an image
   inputs:
-    repository: sandeepmkp.jfrog.io/docker-local/tde/ado/$(imageName)
-    command: build
-    Dockerfile: app/Dockerfile
+    repository: 'sandeepmkp.jfrog.io/test-docker/tde/ado/$(imageName)'
+    command: 'build'
+    Dockerfile: 'app/Dockerfile'
     tags: 'latest'
-- task: CmdLine@2
+- task: JFrogDocker@1
   inputs:
-    script: 'docker images'
-- task: ArtifactoryDocker@1
-  inputs:
-    command: 'push'
-    artifactoryService: 'tata'
-    targetRepo: 'docker-local'
-    imageName: 'sandeepmkp.jfrog.io/docker-local/tde/ado/$(imageName):latest'
+    command: 'Push'
+    artifactoryConnection: 'sandeepa'
+    imageName: 'sandeepmkp.jfrog.io/test-docker/tde/ado/$(imageName):latest'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
