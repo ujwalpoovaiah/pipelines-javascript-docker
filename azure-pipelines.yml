@@ -8,7 +8,7 @@ variables:
 steps:
 - task: ArtifactoryToolsInstaller@1
   inputs:
-    artifactoryService: 'tata'
+    artifactoryService: 'sandeepa1'
     cliInstallationRepo: 'jfrog-cli-v1'
     installCustomVersion: true
     cliVersion: '1.53.2'
