@@ -1,7 +1,6 @@
 trigger:
 - master
-pool:
-  vmImage: 'Ubuntu-18.04'
+pool: 'podman'
 
 variables:
   imageName: 'pipelines-javascript-docker'
@@ -10,13 +9,13 @@ steps:
 - task: ArtifactoryToolsInstaller@1
   inputs:
     artifactoryService: 'tata'
-    cliInstallationRepo: 'cli-v1'
+    cliInstallationRepo: 'jfrog-cli-v1'
     installCustomVersion: true
     cliVersion: '1.53.2'
 - task: Docker@2
   displayName: Build an image
   inputs:
-    repository: 45a5-35-205-102-215.eu.ngrok.io/test-docker/tde/ado/$(imageName)
+    repository: sandeepmkp.jfrog.io/test-docker/tde/ado/$(imageName)
     command: build
     Dockerfile: app/Dockerfile
     tags: 'latest'
@@ -26,14 +25,14 @@ steps:
 - task: ArtifactoryDocker@1
   inputs:
     command: 'push'
-    artifactoryService: 'tata'
+    artifactoryService: 'sandeepa'
     targetRepo: 'test-docker'
-    imageName: '45a5-35-205-102-215.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest'
+    imageName: 'sandeepmkp.jfrog.io/test-docker/tde/ado/$(imageName):latest'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
-    artifactoryService: 'tata'
+    artifactoryService: 'sandeepa'
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
