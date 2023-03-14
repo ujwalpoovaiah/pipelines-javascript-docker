@@ -10,7 +10,7 @@ steps:
 - task: ArtifactoryToolsInstaller@1
   inputs:
     artifactoryService: 'tata'
-    cliInstallationRepo: 'jfrog-cli-v1'
+    cliInstallationRepo: 'cli-v1'
     installCustomVersion: true
     cliVersion: '1.53.2'
 - task: Docker@2
