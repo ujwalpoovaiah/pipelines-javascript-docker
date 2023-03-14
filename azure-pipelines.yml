@@ -27,7 +27,7 @@ steps:
   inputs:
     command: 'push'
     artifactoryService: 'tata'
-    targetRepo: 'docker-local'
+    targetRepo: 'test-docker'
     imageName: '45a5-35-205-102-215.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
