@@ -8,14 +8,14 @@ variables:
 steps:
 - task: ArtifactoryToolsInstaller@1
   inputs:
-    artifactoryService: 'sandeepa1'
-    cliInstallationRepo: 'jfrog-cli-v1'
+    artifactoryService: 'tata'
+    cliInstallationRepo: 'cli-v1'
     installCustomVersion: true
     cliVersion: '1.53.2'
 - task: Docker@2
   displayName: Build an image
   inputs:
-    repository: sandeepmkp.jfrog.io/test-docker/tde/ado/$(imageName)
+    repository: 644b-34-22-157-220.eu.ngrok.io/test-docker/tde/ado/$(imageName)
     command: build
     Dockerfile: app/Dockerfile
     tags: 'latest'
@@ -25,14 +25,14 @@ steps:
 - task: ArtifactoryDocker@1
   inputs:
     command: 'push'
-    artifactoryService: 'sandeepa1'
+    artifactoryService: 'tata'
     targetRepo: 'test-docker'
-    imageName: 'sandeepmkp.jfrog.io/test-docker/tde/ado/$(imageName):latest'
+    imageName: '644b-34-22-157-220.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest'
     collectBuildInfo: true
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
-    artifactoryService: 'sandeepa1'
+    artifactoryService: 'tata'
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
