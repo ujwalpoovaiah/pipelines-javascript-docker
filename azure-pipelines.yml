@@ -14,10 +14,6 @@ steps:
     command: 'build'
     Dockerfile: 'app/Dockerfile'
     tags: 'latest'
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'export JFROG_CLI_LOG_LEVEL=DEBUG'
 
 - task: JfrogCliV2@1
   inputs:
