@@ -10,7 +10,7 @@ steps:
 
 - task: Docker@2
   inputs:
-    repository: '2440-34-22-137-178.eu.ngrok.io/test-docker/tde/ado/$(imageName)'
+    repository: 'a8d1-35-241-242-81.eu.ngrok.io/test-docker/tde/ado/$(imageName)'
     command: 'build'
     Dockerfile: 'app/Dockerfile'
     tags: 'latest'
@@ -18,16 +18,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'export JFROG_CLI_LOG_LEVEL=DEBUG'
-- task: JFrogDocker@1
+
+- task: JfrogCliV2@1
   inputs:
-    command: 'Push'
-    artifactoryConnection: 'sandeepa'
-    imageName: '2440-34-22-137-178.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest'
-    collectBuildInfo: true
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-- task: JFrogPublishBuildInfo@1
-  inputs:
-    artifactoryConnection: 'sandeepa'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
+    jfrogPlatformConnection: 'podman'
+    command: 'jf rt pp "a8d1-35-241-242-81.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest" test-docker" --build-name="Jfrogartifactory-testpipeline" --build-number="20230316.9"'
