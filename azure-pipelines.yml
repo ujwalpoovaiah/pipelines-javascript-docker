@@ -22,4 +22,4 @@ steps:
 - task: JfrogCliV2@1
   inputs:
     jfrogPlatformConnection: 'podman'
-    command: 'jf rt pp "a8d1-35-241-242-81.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest" test-docker" --build-name="Jfrogartifactory-testpipeline" --build-number="20230316.9"'
+    command: 'jf rt pp a8d1-35-241-242-81.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest test-docker --build-name=Jfrogartifactory-testpipeline --build-number=20230316.9'
