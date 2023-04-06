@@ -1,3 +1,9 @@
+resources:
+  repositories:
+  - repository: MyGitHubRepo # The name used to reference this repository in the checkout step
+    type: github
+    endpoint: VigneshC-Jfrog
+    name: VigneshC-Jfrog/docker-templates
 trigger:
 - master
 pool:
@@ -7,12 +13,14 @@ variables:
   imageName: 'pipelines-javascript-docker'
 
 steps:
+- checkout: self
+- checkout: MyGitHubRepo
 - task: Docker@2
   displayName: Build an image
   inputs:
     repository: sandeepmkp.jfrog.io/test-docker-local/$(imageName)
     command: build
-    Dockerfile: app/Dockerfile
+    Dockerfile: pipelines-javascript-docker/app/Dockerfile
 - task: JFrogDocker@1
   inputs:
     command: 'Push'
