@@ -1,26 +1,31 @@
 trigger:
-
 - master
-pool: 'podman'
+pool:
+  vmImage: 'Ubuntu-18.04'
 
 variables:
   imageName: 'pipelines-javascript-docker'
 
 steps:
-
 - task: Docker@2
+  displayName: Build an image
   inputs:
-    repository: 'a8d1-35-241-242-81.eu.ngrok.io/test-docker/tde/ado/$(imageName)'
-    command: 'build'
-    Dockerfile: 'app/Dockerfile'
-    tags: 'latest'
+    repository: sandeepmkp.jfrog.io/docker-local/$(imageName)
+    command: build
+    Dockerfile: app/Dockerfile
+- task: JFrogDocker@1
+  inputs:
+    command: 'Push'
+    artifactoryConnection: 'ujwal-artifactory'
+    imageName: 'sandeepmkp.jfrog.io/docker-local/$(imageName):$(Build.BuildId)'
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    threads: '3'
+    skipLogin: false
 
-- task: JfrogCliV2@1
+- task: JFrogPublishBuildInfo@1
   inputs:
-    jfrogPlatformConnection: 'podman'
-    command: 'jf rt pp a8d1-35-241-242-81.eu.ngrok.io/test-docker/tde/ado/$(imageName):latest test-docker --build-name=Jfrogartifactory-testpipeline --build-number=20230316.9'
-
-- task: JfrogCliV2@1
-  inputs:
-    jfrogPlatformConnection: 'podman'
-    command: 'jf rt bp Jfrogartifactory-testpipeline 20230316.9'
+    artifactoryConnection: 'ujwal-artifactory'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
