@@ -1,55 +1,42 @@
 resources:
   repositories:
-  - repository: MyGitHubRepo # The name used to reference this repository in the checkout step
-    type: github
-    endpoint: VigneshC-Jfrog
-    name: VigneshC-Jfrog/docker-templates
+    - repository: MyGitHubRepo
+      type: github
+      endpoint: VigneshC-Jfrog
+      name: VigneshC-Jfrog/docker-templates
 trigger:
-- master
-pool:
-  vmImage: 'Ubuntu-20.04'
-
+  - master
 variables:
-  imageName: 'pipelines-javascript-docker'
-  imageName1: 'java'
-
-steps:
-- checkout: self
-- checkout: MyGitHubRepo
-- task: Docker@2
-  displayName: Build an image
-  inputs:
-    repository: muddanajv.jfrog.io/test-docker-local/$(imageName)
-    command: build
-    Dockerfile: pipelines-javascript-docker/app/Dockerfile
-- task: JFrogDocker@1
-  inputs:
-    command: 'Push'
-    artifactoryConnection: 'ujwal-artifactory'
-    imageName: 'muddanajv.jfrog.io/test-docker-local/$(imageName):$(Build.BuildId)'
-    collectBuildInfo: true
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-    threads: '3'
-    skipLogin: false
-- task: Docker@2
-  displayName: Build an image
-  inputs:
-    repository: muddanajv.jfrog.io/test-docker-local/$(imageName1)
-    command: build
-    Dockerfile: docker-templates/05-JAVA/Maven/Dockerfile
-- task: JFrogDocker@1
-  inputs:
-    command: 'Push'
-    artifactoryConnection: 'ujwal-artifactory'
-    imageName: 'muddanajv.jfrog.io/test-docker-local/$(imageName1):$(Build.BuildId)'
-    collectBuildInfo: true
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
-    threads: '3'
-    skipLogin: false
-- task: JFrogPublishBuildInfo@1
-  inputs:
-    artifactoryConnection: 'ujwal-artifactory'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
+  imageName: pipelines-javascript-docker
+  imageName1: java
+stages:
+  - stage: Build_docker_1
+    pool:
+      vmImage: Ubuntu-20.04
+    jobs:
+      - job: secure_buildjob
+        steps:
+          - checkout: self
+          - checkout: MyGitHubRepo
+          - task: Docker@2
+            displayName: Build an image
+            inputs:
+              repository: sandeepmkp.jfrog.io/test-docker-local/$(imageName)
+              command: build
+              Dockerfile: pipelines-javascript-docker/app/Dockerfile
+          - task: JFrogDocker@1
+            inputs:
+              command: Push
+              artifactoryConnection: ujwal-artifactory
+              imageName: >-
+                sandeepmkp.jfrog.io/test-docker-local/$(imageName):$(Build.BuildId)
+              collectBuildInfo: true
+              buildName: $(Build.DefinitionName)
+              buildNumber: $(Build.BuildNumber)
+              threads: '3'
+              skipLogin: false
+          - task: JFrogPublishBuildInfo@1
+            inputs:
+              artifactoryConnection: ujwal-artifactory
+              buildName: $(Build.DefinitionName)
+              buildNumber: $(Build.BuildNumber)
