@@ -27,7 +27,7 @@ stages:
           - task: JFrogDocker@1
             inputs:
               command: Push
-              artifactoryConnection: ujwal-artifactory
+              artifactoryConnection: shivani-artifactory
               imageName: >-
                 muddanajv.jfrog.io/test-docker-local/$(imageName):$(Build.BuildId)
               collectBuildInfo: true
@@ -37,6 +37,6 @@ stages:
               skipLogin: false
           - task: JFrogPublishBuildInfo@1
             inputs:
-              artifactoryConnection: ujwal-artifactory
+              artifactoryConnection: shivani-artifactory
               buildName: $(Build.DefinitionName)
               buildNumber: $(Build.BuildNumber)
