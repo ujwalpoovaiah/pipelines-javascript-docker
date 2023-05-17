@@ -21,7 +21,7 @@ stages:
           - task: Docker@2
             displayName: Build an image
             inputs:
-              repository: muddanajv.jfrog.io/test-docker-local/$(imageName)
+              repository: 97eb-34-76-253-170.ngrok-free.app/test-docker-local/$(imageName)
               command: build
               Dockerfile: pipelines-javascript-docker/app/Dockerfile
           - task: JFrogDocker@1
@@ -29,7 +29,7 @@ stages:
               command: Push
               artifactoryConnection: shivani-artifactory
               imageName: >-
-                muddanajv.jfrog.io/test-docker-local/$(imageName):$(Build.BuildId)
+                97eb-34-76-253-170.ngrok-free.app/test-docker-local/$(imageName):$(Build.BuildId)
               collectBuildInfo: true
               buildName: $(Build.DefinitionName)
               buildNumber: $(Build.BuildNumber)
