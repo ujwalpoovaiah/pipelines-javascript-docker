@@ -40,3 +40,33 @@ stages:
               artifactoryConnection: shivani-artifactory
               buildName: $(Build.DefinitionName)
               buildNumber: $(Build.BuildNumber)
+  - stage: Build_docker_2
+    pool:
+      vmImage: Ubuntu-20.04
+    jobs:
+      - job: secure_buildjob
+        steps:
+          - checkout: self
+          - checkout: MyGitHubRepo
+          - task: Docker@2
+            displayName: Build an image
+            inputs:
+              repository: 97eb-34-76-253-170.ngrok-free.app/test-docker-local/$(imageName)
+              command: build
+              Dockerfile: pipelines-javascript-docker/app/Dockerfile
+          - task: JFrogDocker@1
+            inputs:
+              command: Push
+              artifactoryConnection: shivani-artifactory
+              imageName: >-
+                97eb-34-76-253-170.ngrok-free.app/test-docker-local/$(imageName1):$(Build.BuildId)
+              collectBuildInfo: true
+              buildName: $(Build.DefinitionName)
+              buildNumber: $(Build.BuildNumber)
+              threads: '3'
+              skipLogin: false
+          - task: JFrogPublishBuildInfo@1
+            inputs:
+              artifactoryConnection: shivani-artifactory
+              buildName: $(Build.DefinitionName)
+              buildNumber: $(Build.BuildNumber)
