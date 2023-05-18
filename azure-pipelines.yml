@@ -51,7 +51,7 @@ stages:
           - task: Docker@2
             displayName: Build an image
             inputs:
-              repository: 8a80-34-140-130-162.ngrok-free.app/test-docker-local/$(imageName)
+              repository: 8a80-34-140-130-162.ngrok-free.app/test-docker-local/$(imageName1)
               command: build
               Dockerfile: docker-templates/05-JAVA/Maven/Dockerfile
           - task: JFrogDocker@1
