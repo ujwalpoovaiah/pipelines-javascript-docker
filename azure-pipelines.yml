@@ -53,7 +53,7 @@ stages:
             inputs:
               repository: 8a80-34-140-130-162.ngrok-free.app/test-docker-local/$(imageName)
               command: build
-              Dockerfile: pipelines-javascript-docker/app/Dockerfile
+              Dockerfile: docker-templates/05-JAVA/Maven/Dockerfile
           - task: JFrogDocker@1
             inputs:
               command: Push
