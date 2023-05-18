@@ -35,11 +35,12 @@ stages:
               buildNumber: $(Build.BuildNumber)
               threads: '3'
               skipLogin: false
-          - task: JFrogPublishBuildInfo@1
-            inputs:
-              artifactoryConnection: shivani-artifactory
-              buildName: $(Build.DefinitionName)
-              buildNumber: $(Build.BuildNumber)
+          # - task: JFrogPublishBuildInfo@1
+          #   inputs:
+          #     artifactoryConnection: shivani-artifactory
+          #     buildName: $(Build.DefinitionName)
+          #     buildNumber: $(Build.BuildNumber)
+
   - stage: Build_docker_2
     pool:
       vmImage: Ubuntu-20.04
