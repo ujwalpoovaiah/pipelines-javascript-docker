@@ -35,11 +35,11 @@ stages:
               buildNumber: $(Build.BuildNumber)
               threads: '3'
               skipLogin: false
-          # - task: JFrogPublishBuildInfo@1
-          #   inputs:
-          #     artifactoryConnection: shivani-artifactory
-          #     buildName: $(Build.DefinitionName)
-          #     buildNumber: $(Build.BuildNumber)
+          - task: JFrogPublishBuildInfo@1
+            inputs:
+              artifactoryConnection: shivani-artifactory
+              buildName: $(Build.DefinitionName)
+              buildNumber: $(Build.BuildNumber)
 
   - stage: Build_docker_2
     pool:
@@ -71,3 +71,15 @@ stages:
               artifactoryConnection: shivani-artifactory
               buildName: $(Build.DefinitionName)
               buildNumber: $(Build.BuildNumber)
+          - task: JfrogCliV2@1
+            inputs:
+                jfrogPlatformConnection: 'shivani-jfrog'
+                command: |
+                  jf rt build-append aggregating-build 10 pipelines-javascript-docker/app/Dockerfile
+                   $(Build.BuildNumber)
+                  jf rt build-append aggregating-build 10 docker-templates/05-JAVA/Maven/Dockerfile
+                  $(Build.BuildNumber)
+          - task: JfrogCliV2@1
+            inputs:
+                jfrogPlatformConnection: 'shivani-jfrog'
+                command: 'jf rt build-publish aggregating-build 10'
