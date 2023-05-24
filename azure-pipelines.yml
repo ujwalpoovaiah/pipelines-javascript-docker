@@ -27,7 +27,7 @@ stages:
           - task: JFrogDocker@1
             inputs:
               command: Push
-              artifactoryConnection: shivani-jfrog
+              artifactoryConnection: shivani-artifactory
               imageName: >-
                 0be4-34-78-247-1.ngrok-free.app/test-docker-local/$(imageName):$(Build.BuildId)
               collectBuildInfo: true
@@ -58,7 +58,7 @@ stages:
           - task: JFrogDocker@1
             inputs:
               command: Push
-              artifactoryConnection: shivani-jfrog
+              artifactoryConnection: shivani-artifactory
               imageName: >-
                 0be4-34-78-247-1.ngrok-free.app/test-docker-local/$(imageName1):$(Build.BuildId)
               collectBuildInfo: true
@@ -68,7 +68,7 @@ stages:
               skipLogin: false
           - task: JFrogPublishBuildInfo@1
             inputs:
-              artifactoryConnection: shivani-jfrog
+              artifactoryConnection: shivani-artifactory
               buildName: $(Build.DefinitionName)
               buildNumber: $(Build.BuildNumber)
           - task: JfrogCliV2@1
