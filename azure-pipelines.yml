@@ -21,7 +21,7 @@ stages:
           - task: Docker@2
             displayName: Build an image
             inputs:
-              repository: 8a80-34-140-130-162.ngrok-free.app/test-docker-local/$(imageName)
+              repository: 0be4-34-78-247-1.ngrok-free.app/test-docker-local/$(imageName)
               command: build
               Dockerfile: pipelines-javascript-docker/app/Dockerfile
           - task: JFrogDocker@1
@@ -29,7 +29,7 @@ stages:
               command: Push
               artifactoryConnection: shivani-artifactory
               imageName: >-
-                8a80-34-140-130-162.ngrok-free.app/test-docker-local/$(imageName):$(Build.BuildId)
+                0be4-34-78-247-1.ngrok-free.app/test-docker-local/$(imageName):$(Build.BuildId)
               collectBuildInfo: true
               buildName: $(Build.DefinitionName)
               buildNumber: $(Build.BuildNumber)
@@ -52,7 +52,7 @@ stages:
           - task: Docker@2
             displayName: Build an image
             inputs:
-              repository: 8a80-34-140-130-162.ngrok-free.app/test-docker-local/$(imageName1)
+              repository: 0be4-34-78-247-1.ngrok-free.app/test-docker-local/$(imageName1)
               command: build
               Dockerfile: docker-templates/05-JAVA/Maven/Dockerfile
           - task: JFrogDocker@1
@@ -60,7 +60,7 @@ stages:
               command: Push
               artifactoryConnection: shivani-artifactory
               imageName: >-
-                8a80-34-140-130-162.ngrok-free.app/test-docker-local/$(imageName1):$(Build.BuildId)
+                0be4-34-78-247-1.ngrok-free.app/test-docker-local/$(imageName1):$(Build.BuildId)
               collectBuildInfo: true
               buildName: $(Build.DefinitionName)
               buildNumber: $(Build.BuildNumber)
